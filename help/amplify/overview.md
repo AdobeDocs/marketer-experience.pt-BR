@@ -1,17 +1,17 @@
 ---
-title: Amplificar visão geral
+title: Visão geral do Amplify
 description: Esta é a página de visão geral do Amplify.
 source-git-commit: a389631a2baa639496f4168a164aa3461157f5ff
-workflow-type: tm+mt
+workflow-type: ht
 source-wordcount: '17'
-ht-degree: 5%
+ht-degree: 100%
 
 ---
 
 
 # Visão geral
 
-Bem-vindo ao guia do usuário Amplify.
+Boas-vindas. Este é o manual do Amplify.
 
 MAIS...
 

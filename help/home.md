@@ -1,14 +1,14 @@
 ---
-title: Experiência do profissional de marketing
-description: Esta é a página de visão geral do [!DNL Marketer Experience].
+title: Marketer Experience
+description: Esta é a página da visão geral do  [!DNL Marketer Experience].
 source-git-commit: a3eef4938f645e4db1db335aa36d988c93921f18
-workflow-type: tm+mt
+workflow-type: ht
 source-wordcount: '15'
-ht-degree: 0%
+ht-degree: 100%
 
 ---
 
 
-# Visão geral da experiência do profissional de marketing
+# Visão geral do Marketer Experience
 
-Bem-vindo à [!DNL Marketer Experience] visão geral.
+Boas-vindas. Esta é a visão geral do [!DNL Marketer Experience].
