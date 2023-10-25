@@ -3,9 +3,9 @@ title: Evento unitário
 description: Esta é uma página de instruções para simular o tipo de validação da jornada “[!UICONTROL Evento unitário]”.
 exl-id: 314f967c-e10f-4832-bdba-901424dc2eeb
 source-git-commit: 194667c26ed002be166ab91cc778594dc1f09238
-workflow-type: tm+mt
+workflow-type: ht
 source-wordcount: '889'
-ht-degree: 37%
+ht-degree: 100%
 
 ---
 
@@ -33,8 +33,8 @@ ht-degree: 37%
 
 >[!TIP]
 >
->Se você estiver usando um terminal para executar os curls, poderá definir valores variáveis antes de executar os curls, de modo que não haja necessidade de substituir esses valores em curls individuais.
->Por exemplo: se você definir `ORG_ID=************@AdobeOrg`, o shell substituirá automaticamente cada ocorrência de `$ORG_ID` com o valor, para que você possa copiar, colar e executar as curvas abaixo sem qualquer modificação.
+>Se você estiver usando um terminal para executar os curls, poderá definir valores variáveis antes de executá-los, de modo que não haja necessidade de substituir esses valores em curls individuais.
+>Por exemplo: se você definir `ORG_ID=************@AdobeOrg`, o shell substituirá automaticamente cada ocorrência de `$ORG_ID` com o valor, para que você possa copiar, colar e executar os curls abaixo sem qualquer modificação.
 >
 > As variáveis a seguir são usadas em todo este documento
 >
@@ -52,7 +52,7 @@ ht-degree: 37%
 >
 > PROFILE_DATASET_ID
 >
-> JORNADA_ID
+> JOURNEY_ID
 >
 > PROFILE_BASE_CONNECTION_ID
 >
@@ -84,9 +84,9 @@ ht-degree: 37%
 >
 > EVENT_INLET_URL
 >
-> CARIMBO DE DATA E HORA
+> TIMESTAMP
 >
-> IDENTIFICAÇÃO_EVENTO_EXCLUSIVA
+> UNIQUE_EVENT_ID
 
 ## Buscar token IMS
 
@@ -100,9 +100,9 @@ Existem 2 maneiras de publicar a jornada. Você pode escolher qualquer uma delas
 
    ![Objeto da jornada](../assets/journey-object.png)
 
-1. **Uso do cURL**
+1. **Utilização do cURL**
 
-   1. Publique a jornada. A resposta conterá a ID de tarefa necessária na próxima etapa para buscar o status de publicação do jornada.
+   1. Publique a jornada. A resposta conterá a ID de processo necessária na próxima etapa para buscar o status de publicação da jornada.
 
       ```bash
       curl --location --request POST "https://journey-private.adobe.io/authoring/jobs/journeyVersions/$JOURNEY_ID/deploy" \
@@ -114,7 +114,7 @@ Existem 2 maneiras de publicar a jornada. Você pode escolher qualquer uma delas
       --header "Content-Type: application/json" 
       ```
 
-   1. A publicação do Jornada pode levar algum tempo, portanto, para verificar o status, execute abaixo de cURL, até que o `response.status` é `SUCCESS`, aguarde de 10 a 15 segundos se a publicação do jornada levar tempo.
+   1. A publicação da jornada pode levar algum tempo, portanto, para verificar o status executado abaixo do cURL, até que o `response.status` seja `SUCCESS`, aguarde de 10 a 15 segundos se a publicação da jornada demorar.
 
       ```bash
       curl --location "https://journey-private.adobe.io/authoring/jobs/$JOB_ID" \
@@ -129,9 +129,9 @@ Existem 2 maneiras de publicar a jornada. Você pode escolher qualquer uma delas
 
 >[!TIP]
 >
->Se o seu provedor de email aceitar mais emails, você poderá reutilizar o mesmo endereço de email anexando `+<variable>` no seu email, por exemplo, `usertest@email.com` pode ser retomado como `usertest+v1@email.com` ou `usertest+24jul@email.com`. Isso é útil para criar um perfil novo a cada vez, mas ainda usando a mesma ID de email.
+>Se o seu provedor de email for compatível com emails do Plus, você poderá reutilizar o mesmo endereço de email anexando `+<variable>` ao seu email. Por exemplo, `usertest@email.com` pode ser reutilizado como `usertest+v1@email.com` ou `usertest+24jul@email.com`. Isso é útil para criar um perfil novo a cada vez, mas ainda usando a mesma ID de email.
 >
->P.S: Os emails do Plus são um recurso configurável que precisa de suporte do provedor de email. Verifique se você pode receber emails sobre esses endereços antes de usá-los no teste.
+>P.S: os emails do Plus são um recurso configurável que precisa ser compatível com o provedor de email. Verifique se você consegue receber emails nesses endereços antes de usá-los no teste.
 
 1. Usuários e usuárias iniciantes precisam criar o **[!DNL customer dataset]** e o **[!DNL HTTP Streaming Inlet Connection]**.
 1. Se você já criou o **[!DNL customer dataset]** e o **[!DNL HTTP Streaming Inlet Connection]**, pule para a etapa `5`.
@@ -168,7 +168,7 @@ Existem 2 maneiras de publicar a jornada. Você pode escolher qualquer uma delas
 
    A resposta terá o formato `"@/dataSets/<PROFILE_DATASET_ID>"`.
 
-1. Criar **[!DNL HTTP Streaming Inlet Connection]** com a ajuda das etapas a seguir.
+1. Crie **[!DNL HTTP Streaming Inlet Connection]** com a ajuda das etapas a seguir.
    1. Crie uma conexão básica.
 
       ```bash
@@ -194,7 +194,7 @@ Existem 2 maneiras de publicar a jornada. Você pode escolher qualquer uma delas
       }'
       ```
 
-      Obter a ID de conexão básica da resposta e usá-la no lugar de `PROFILE_BASE_CONNECTION_ID` nas seguintes cURLs
+      Obter a ID de conexão básica da resposta e usá-la no lugar de `PROFILE_BASE_CONNECTION_ID` nos seguintes cURLs
 
    1. Criar conexão de origem.
 
@@ -250,7 +250,7 @@ Existem 2 maneiras de publicar a jornada. Você pode escolher qualquer uma delas
 
       Obter a id de conexão de destino da resposta e usá-la no lugar de `PROFILE_TARGET_CONNECTION_ID`
 
-   1. Criar um fluxo de dados.
+   1. Crie um fluxo de dados.
 
       ```bash
       curl --location "https://platform.adobe.io/data/foundation/flowservice/flows" \
@@ -275,7 +275,7 @@ Existem 2 maneiras de publicar a jornada. Você pode escolher qualquer uma delas
       }'
       ```
 
-   1. Obter conexão básica. O resultado conterá inletUrl necessário para enviar dados de perfil.
+   1. Obter conexão básica. O resultado conterá o inletUrl necessário para enviar dados de perfil.
 
       ```bash
       curl --location "https://platform.adobe.io/data/foundation/flowservice/connections/$PROFILE_BASE_CONNECTION_ID" \
@@ -286,17 +286,17 @@ Existem 2 maneiras de publicar a jornada. Você pode escolher qualquer uma delas
       --header "x-api-key: $API_KEY"
       ```
 
-      Obter inletUrl da resposta e usá-lo no lugar de `PROFILE_INLET_URL`
+      Obter o inletUrl da resposta e usá-lo no lugar de `PROFILE_INLET_URL`
 
 1. Nesta etapa, o usuário deve ter valores de `PROFILE_DATASET_ID` e `PROFILE_INLET_URL`; caso contrário, consulte a etapa `3` ou `4` respectivamente.
-1. Para assimilar clientes, o usuário precisa substituir `CUSTOMER_MOBILE_NUMBER`, `CUSTOMER_FIRST_NAME`, `CUSTOMER_LAST_NAME` e `EMAIL` em cURLs abaixo.
+1. Para assimilar clientes, o usuário precisa substituir `CUSTOMER_MOBILE_NUMBER`, `CUSTOMER_FIRST_NAME`, `CUSTOMER_LAST_NAME` e `EMAIL` nos cURLs abaixo.
 
    1. `CUSTOMER_MOBILE_NUMBER` seria o número do celular, por exemplo `+1 000-000-0000`
    1. `CUSTOMER_FIRST_NAME` seria o nome da pessoa
    1. `CUSTOMER_LAST_NAME` seria o sobrenome da pessoa
    1. `EMAIL` seria o endereço de email da pessoa. É crucial usar uma ID de email distinta para que um novo perfil possa ser assimilado.
 
-1. Por fim, execute o curl para assimilar o perfil do cliente. Atualizar `body.xdmEntity.consents.marketing.preferred` para `email`, `sms`ou `push` com base nos canais que você pretende verificar. Também defina as correspondentes `val` para `y`.
+1. Por fim, execute o curl para assimilar o perfil do cliente. Atualizar `body.xdmEntity.consents.marketing.preferred` para `email`, `sms` ou `push` com base nos canais que você pretende verificar. Também defina as `val` correspondentes como `y`.
 
    ```bash
    curl --location "$PROFILE_INLET_URL?synchronousValidation=true" \
@@ -354,7 +354,7 @@ Existem 2 maneiras de publicar a jornada. Você pode escolher qualquer uma delas
    }'
    ```
 
-## Evento do acionador de Jornada de assimilação
+## Evento do acionador de jornada de assimilação
 
 1. Usuários e usuárias iniciantes precisam criar o **[!DNL event dataset]** e o **[!DNL HTTP Streaming Inlet Connection for events]**
 1. Se você já criou o **[!DNL event dataset]** e o **[!DNL HTTP Streaming Inlet Connection for events]**, pule para a etapa `5`.
@@ -391,7 +391,7 @@ Existem 2 maneiras de publicar a jornada. Você pode escolher qualquer uma delas
 
    A resposta terá o formato `"@/dataSets/<EVENT_DATASET_ID>"`
 
-1. Criar **[!DNL HTTP Streaming Inlet Connection for events]**  com a ajuda das etapas a seguir.
+1. Crie **[!DNL HTTP Streaming Inlet Connection for events]**  com a ajuda das etapas a seguir.
    <!-- TODO: Is the name unique? If so, we may need to generate and provide in variables.txt-->
    1. Crie uma conexão básica.
 
@@ -474,7 +474,7 @@ Existem 2 maneiras de publicar a jornada. Você pode escolher qualquer uma delas
 
       Obter a id de conexão de destino da resposta e usá-la no lugar de `EVENT_TARGET_CONNECTION_ID`
 
-   1. Criar um fluxo de dados.
+   1. Crie um fluxo de dados.
 
       ```bash
       curl --location "https://platform.adobe.io/data/foundation/flowservice/flows" \
@@ -499,7 +499,7 @@ Existem 2 maneiras de publicar a jornada. Você pode escolher qualquer uma delas
       }'
       ```
 
-   1. Obter conexão básica. O resultado conterá inletUrl necessário para enviar dados de perfil.
+   1. Obter conexão básica. O resultado conterá o inletUrl necessário para enviar dados de perfil.
 
    ```bash
    curl --location "https://platform.adobe.io/data/foundation/flowservice/connections/$EVENT_BASE_CONNECTION_ID" \
@@ -510,14 +510,14 @@ Existem 2 maneiras de publicar a jornada. Você pode escolher qualquer uma delas
        --header "Content-Type: application/json" 
    ```
 
-   Obter inletUrl da resposta e usá-lo no lugar de `EVENT_INLET_URL`
+   Obter o inletUrl da resposta e usá-lo no lugar de `EVENT_INLET_URL`
 
-1. Nesta etapa, o usuário deve ter valores de `EVENT_DATASET_ID` e `EVENT_INLET_URL`; caso contrário, consulte a etapa `3` ou `4` respectivamente.
-1. Para assimilar um evento, o usuário precisa alterar a variável de tempo `TIMESTAMP` no corpo da solicitação do cURL abaixo.
+1. Nesta etapa, é preciso ter valores de `EVENT_DATASET_ID` e `EVENT_INLET_URL`; caso contrário, consulte a etapa `3` ou `4` respectivamente.
+1. Para assimilar o evento, é necessário alterar a variável de tempo `TIMESTAMP` no corpo da solicitação do cURL abaixo.
 
-   1. Substituir `body.xdmEntity` com conteúdo do evento baixado json.
-   1. `TIMESTAMP` No caso da hora de ocorrência do evento, use o carimbo de data e hora no fuso horário UTC, por exemplo: `2023-09-05T23:57:00.071+00:00`.
-   1. Definir um valor exclusivo para a variável `UNIQUE_EVENT_ID`.
+   1. Substitua `body.xdmEntity` pelo conteúdo do json do evento baixado.
+   1. `TIMESTAMP` seria o horário de ocorrência do evento; use o carimbo de data e hora no fuso horário UTC, por exemplo. `2023-09-05T23:57:00.071+00:00`.
+   1. Defina um valor único para a variável `UNIQUE_EVENT_ID`.
 
    ```bash
    curl --location "$EVENT_INLET_URL?synchronousValidation=true" \
