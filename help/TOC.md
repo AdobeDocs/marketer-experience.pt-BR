@@ -3,7 +3,7 @@ user-guide-title: Marketer Experience
 breadcrumb-title: Marketer Experience
 user-guide-description: Manual do Marketer Experience
 source-git-commit: a3eef4938f645e4db1db335aa36d988c93921f18
-workflow-type: ht
+workflow-type: tm+mt
 source-wordcount: '21'
 ht-degree: 100%
 
